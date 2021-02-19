@@ -10,10 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r setup, include=FALSE}
+
 library(dplyr)
 library(tidyverse)
 library(rvest)
 library(janitor)
+library(writexl)
 
 ```
 
@@ -45,3 +47,10 @@ govtech_combined <- table_2021 %>%
   select(name, founded, headquarters, description)
 
 ```
+
+```{r export, echo = FALSE}
+
+
+
+```
+
