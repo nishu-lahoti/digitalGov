@@ -50,7 +50,7 @@ govtech_combined <- table_2021 %>%
 
 ```{r export, echo = FALSE}
 
-
+write_xlsx(x = govtech_combined, path = "govtech_companies.xlsx", col_names = TRUE)
 
 ```
 
