@@ -1,0 +1,47 @@
+---
+title: "govtech_top_100"
+author: "Nishu Lahoti"
+date: "2/18/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(tidyverse)
+library(rvest)
+library(janitor)
+
+```
+
+```{r 2021, echo = FALSE}
+
+govtech_2021 <- paste0("https://www.govtech.com/100/2021/")
+html_2021 <- read_html(govtech_2021)
+table_2021 <- html_2021 %>% 
+  html_nodes("table")
+table_2021 <- table_2021[[1]] %>% html_table %>% clean_names()
+```
+
+```{r 2020, echo = FALSE}
+
+govtech_2020 <- paste0("https://www.govtech.com/100/2020/")
+html_2020 <- read_html(govtech_2020)
+table_2020 <- html_2020 %>% 
+  html_nodes("table")
+table_2020 <- table_2020[[1]] %>% html_table %>% clean_names()
+```
+
+```{r combined, echo = FALSE}
+
+govtech_combined <- table_2021 %>%
+  full_join(table_2020, by = "name") %>%
+  mutate(founded = coalesce(founded.x, founded.y),
+         headquarters = coalesce(headquarters.x, headquarters.y),
+         description = coalesce(description.x, description.y)) %>%
+  select(name, founded, headquarters, description)
+
+```
